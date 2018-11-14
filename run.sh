@@ -3,7 +3,7 @@
 VIRTUAL_ENV="env"
 
 echo "Checking for existing virtual environment"
-if [ ! -d "$VIRTUAL_ENV" ]; then
+if [[ ! -d "$VIRTUAL_ENV" ]]; then
     echo 'No virtual environment found!'
     echo "creating virtual environment $VIRTUAL_ENV "
     python3 -m venv env
