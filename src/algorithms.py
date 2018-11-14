@@ -1,4 +1,4 @@
-def fifo():
+def fifo(page_table, ):
     """
     FIFO Scheduling
     TODO: Implement
