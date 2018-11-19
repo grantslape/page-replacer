@@ -4,7 +4,7 @@ settings = {
     'MAX_PHYS_PAGE': 30
 }
 
-types = {
+TYPES = {
     'FIFO': 0,
     'LRU': 1,
     'OPT': 2

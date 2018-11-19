@@ -16,8 +16,7 @@ source env/bin/activate
 pip install --upgrade setuptools
 echo "installing requirements"
 pip install -r requirements.txt
-#echo "Running simulation with default configuration"
-#echo "python main.py 10000 30 123456"
-#python main.py 10000 30 1234
+echo "Running simulation"
+python main.py
 echo "deactivating virtual environment"
 deactivate
