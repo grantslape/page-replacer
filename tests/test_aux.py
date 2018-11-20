@@ -4,7 +4,7 @@ import unittest
 import numpy as np
 
 from src.commons.settings import settings as sf
-from src.sim import generate_ref_string
+from src.sim import Simulator
 
 
 class TestAux(TestCase):
@@ -19,7 +19,7 @@ class TestAux(TestCase):
 
     def _generate(self):
         """test runner for generate"""
-        ref_string = generate_ref_string(
+        ref_string = Simulator.generate_ref_string(
             length=sf['REF_STRING_SIZE'],
             max_page=sf['MAX_VIRTUAL_PAGE']
         )

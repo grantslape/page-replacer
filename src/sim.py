@@ -3,48 +3,66 @@ from collections import deque
 import numpy as np
 
 from src.commons.settings import settings as sf
+from src.commons.settings import TYPES as SCHEDULE_TYPES
 
 
-def generate_ref_string(length: int, max_page: int) -> deque:
+class Simulator:
     """
-    Generate reference string to use for test
-    :param length: length of page reference string to generate
-    :param max_page: max page number to use
-    :return: Queue representing reference string
+    Simulator class
     """
-    return deque(
-        np.random.randint(
-            low=0,
-            high=max_page,
-            size=length
-        ),
-        maxlen=length
-    )
+    def __init__(self, schedule_type: int, table_size: int):
+        if schedule_type not in SCHEDULE_TYPES:
+            raise ValueError('Unknown schedule type')
 
+        self.schedule_type = schedule_type
+        self.page_table = deque(maxlen=table_size)
+        self.ref_string = self.generate_ref_string(
+            length=sf['REF_STRING_SIZE'],
+            max_page=sf['MAX_VIRTUAL_PAGE']
+        )
 
-def run_once(size: int) -> dict:
-    """
-    Run the simulation once
-    :param size: max physical page
-    :return: dict of simulation results
-    """
-    ref_string = generate_ref_string(
-        length=sf['REF_STRING_SIZE'],
-        max_page=size
-    )
+    @staticmethod
+    def generate_ref_string(length: int, max_page: int) -> deque:
+        """
+        Generate reference string to use for test
+        :param length: length of page reference string to generate
+        :param max_page: max page number to use
+        :return: Queue representing reference string
+        """
+        return deque(
+            np.random.randint(
+                low=0,
+                high=max_page,
+                size=length
+            ),
+            maxlen=length
+        )
 
-    page_table = deque(maxlen=size)
+    def run_once(self) -> dict:
+        """
+        Run the simulation once
+        :return: dict of simulation results
+        """
+        faults = 0
 
-    while len(ref_string) > 0:
-        next_val = ref_string.popleft()
-        try:
-            index = page_table.index(next_val)
-        except ValueError as Ex:
-            # NOT FOUND
-            pass
-        else:
-            # FOUND
-            # TODO Used handler w/ index
-            pass
+        while len(self.ref_string) > 0:
+            next_val = self.ref_string.popleft()
+            try:
+                self.page_table.index(next_val)
+            except ValueError as Ex:
+                # NOT FOUND, page fault
+                faults += 1
+            else:
+                self.found(next_val)
 
-    return {}
+        return {}
+
+    def found(self, value: int):
+        """
+        Found item handler
+        :param value: value that was found
+        :return:
+        """
+        if self.schedule_type == SCHEDULE_TYPES['LRU']:
+            self.page_table.remove(value)
+            self.page_table.append(value)
