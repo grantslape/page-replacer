@@ -1,4 +1,4 @@
-def fifo(page_table, ):
+def fifo():
     """
     FIFO Scheduling
     TODO: Implement
@@ -23,12 +23,3 @@ def opt():
     :return:
     """
     pass
-
-
-def run_sim(page_table, max_frames: int):
-    """
-    Switch to handle running sim
-    :param page_table: Numpy array representing page table
-    :param max_frames: Max number of physical frams available
-    :return:
-    """

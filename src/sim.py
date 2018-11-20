@@ -2,6 +2,7 @@
 from collections import deque
 import numpy as np
 
+from algorithms import fifo, lru, opt
 from src.commons.settings import settings as sf
 from src.commons.settings import TYPES as SCHEDULE_TYPES
 
@@ -49,13 +50,22 @@ class Simulator:
             next_val = self.ref_string.popleft()
             try:
                 self.page_table.index(next_val)
-            except ValueError as Ex:
+            except ValueError:
                 # NOT FOUND, page fault
                 faults += 1
+                if len(self.page_table) == self.page_table.maxlen:
+                    self.replace()
+                else:
+                    self.page_table.append(next_val)
+
             else:
                 self.found(next_val)
 
-        return {}
+        return {
+            'type': self.schedule_type,
+            'max_frames': self.page_table.maxlen,
+            'page_faults': faults
+        }
 
     def found(self, value: int):
         """
@@ -66,3 +76,16 @@ class Simulator:
         if self.schedule_type == SCHEDULE_TYPES['LRU']:
             self.page_table.remove(value)
             self.page_table.append(value)
+
+    def replace(self):
+        """Page replacement handler"""
+        if self.schedule_type == SCHEDULE_TYPES['FIFO']:
+            fifo()
+        elif self.schedule_type == SCHEDULE_TYPES['LRU']:
+            lru()
+        elif self.schedule_type == SCHEDULE_TYPES['OPT']:
+            opt()
+        else:
+            raise KeyError(
+                'Schedule Type not found: {}'.format(self.schedule_type)
+            )
