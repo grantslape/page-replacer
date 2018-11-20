@@ -10,7 +10,7 @@ def opt(page_table: deque, ref_string: deque):
     :return:
     """
     results = PriorityQueue()
-    for value in page_table:
+    for value in list(page_table):
         try:
             index = ref_string.index(value)
         except ValueError:
@@ -22,5 +22,5 @@ def opt(page_table: deque, ref_string: deque):
             # is the lowest number and thus top of the priority queue
             results.put((index * -1, value))
 
-        victim = results.get()[1]
-        page_table.remove(victim)
+    victim = results.get()[1]
+    page_table.remove(victim)
