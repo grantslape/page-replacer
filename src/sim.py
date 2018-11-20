@@ -2,7 +2,7 @@
 from collections import deque
 import numpy as np
 
-from algorithms import fifo, lru, opt
+from algorithms import opt
 from src.commons.settings import settings as sf
 from src.commons.settings import TYPES as SCHEDULE_TYPES
 
@@ -79,12 +79,10 @@ class Simulator:
 
     def replace(self):
         """Page replacement handler"""
-        if self.schedule_type == SCHEDULE_TYPES['FIFO']:
-            fifo()
-        elif self.schedule_type == SCHEDULE_TYPES['LRU']:
-            lru()
+        if self.schedule_type == SCHEDULE_TYPES['FIFO'] or SCHEDULE_TYPES['LRU']:
+            self.page_table.popleft()
         elif self.schedule_type == SCHEDULE_TYPES['OPT']:
-            opt()
+            opt(self.page_table, self.ref_string)
         else:
             raise KeyError(
                 'Schedule Type not found: {}'.format(self.schedule_type)
