@@ -1,10 +1,10 @@
 """Simulation methods"""
 from collections import deque
-import numpy as np
 
 from algorithms import opt
 from src.commons.settings import settings as sf
 from src.commons.settings import TYPES as SCHEDULE_TYPES
+from src.commons.commons import generate_ref_string
 
 
 class Simulator:
@@ -12,31 +12,14 @@ class Simulator:
     Simulator class
     """
     def __init__(self, schedule_type: int, table_size: int):
-        if schedule_type not in SCHEDULE_TYPES:
+        if schedule_type not in SCHEDULE_TYPES.values():
             raise ValueError('Unknown schedule type')
 
         self.schedule_type = schedule_type
         self.page_table = deque(maxlen=table_size)
-        self.ref_string = self.generate_ref_string(
+        self.ref_string = generate_ref_string(
             length=sf['REF_STRING_SIZE'],
             max_page=sf['MAX_VIRTUAL_PAGE']
-        )
-
-    @staticmethod
-    def generate_ref_string(length: int, max_page: int) -> deque:
-        """
-        Generate reference string to use for test
-        :param length: length of page reference string to generate
-        :param max_page: max page number to use
-        :return: Queue representing reference string
-        """
-        return deque(
-            np.random.randint(
-                low=0,
-                high=max_page,
-                size=length
-            ),
-            maxlen=length
         )
 
     def run_once(self) -> dict:

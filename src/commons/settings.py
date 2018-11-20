@@ -8,7 +8,7 @@ settings = {
 }
 
 TYPES = {
-    'FIFO': 0,
-    'LRU': 1,
-    'OPT': 2
+    'FIFO': 1,
+    'LRU': 2,
+    'OPT': 3
 }

@@ -3,7 +3,7 @@ from collections import deque
 from unittest import TestCase
 import unittest
 
-from algorithms import opt
+from src.algorithms import opt
 
 
 class TestAlgorithms(TestCase):
@@ -17,7 +17,7 @@ class TestAlgorithms(TestCase):
         ref_string = deque((3, 2, 4, 7, 6))
 
         opt(self.page_table, ref_string)
-        self.assertEqual(self.page_table, expected)
+        self.assertEqual(expected, self.page_table)
 
     def test_regular(self):
         """test opt algo under regular conditions"""
@@ -25,7 +25,7 @@ class TestAlgorithms(TestCase):
         ref_string = deque((13, 56, 4, 67, 2, 5, 6, 7, 54, 3))
 
         opt(self.page_table, ref_string)
-        self.assertEqual(self.page_table, expected)
+        self.assertEqual(expected, self.page_table)
 
 
 if __name__ == '__main__':
