@@ -23,7 +23,7 @@ def run() -> [dict]:
     """"""
     results = []
     for schedule_type in SCHEDULE_TYPES:
-        for i in range(sf['MAX_PHYS_PAGE']):
+        for i in range(1, sf['MAX_PHYS_PAGE']):
             results.append(Simulator(schedule_type, i).run_once())
 
     return results
