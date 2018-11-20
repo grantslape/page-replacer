@@ -6,7 +6,7 @@ def opt(page_table: deque, ref_string: deque):
     """
     Optimal scheduling
     :param page_table: page table object
-    :param ref_string: reference string to look throyg
+    :param ref_string: reference string to look through
     :return:
     """
     results = PriorityQueue()
