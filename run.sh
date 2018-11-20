@@ -16,7 +16,7 @@ source env/bin/activate
 pip install --upgrade setuptools
 echo "installing requirements"
 pip install -r requirements.txt
-echo "Running simulation"
-python main.py
+echo "Running tests"
+python -m unittest tests/test_aux.py
 echo "deactivating virtual environment"
 deactivate
