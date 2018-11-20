@@ -21,12 +21,19 @@ class TestAux(TestCase):
 
     def _generate(self):
         """test runner for generate"""
-        pass
+        ref_string = generate_ref_string(
+            length=sf['REF_STRING_SIZE'],
+            max_page=sf['MAX_VIRTUAL_PAGE']
+        )
+
+        while not ref_string.empty():
+            value = ref_string.get()
+            self.assertTrue(0 <= value <= sf['MAX_VIRTUAL_PAGE'])
 
     def _search(self):
         """test runner for search"""
-        shuffled_queue = PriorityQueue(maxsize=sf['REF_STRING_SIZE'])
-        queue = Queue(maxsize=sf['REF_STRING_SIZE'])
+        shuffled_queue = PriorityQueue(maxsize=sf['MAX_PHYS_PAGE'])
+        queue = Queue(maxsize=sf['MAX_PHYS_PAGE'])
         target = None
 
         while not shuffled_queue.full():
