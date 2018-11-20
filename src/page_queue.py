@@ -20,5 +20,7 @@ class PageQueue(Queue):
         if index < 0:
             raise ValueError('index must be greater than 0: {}'.format(index))
 
-        for idx in enumerate(self.queue[index + 1:]):
-            self.queue[idx - 1] = self.queue[idx]
+        for idx in range(index, len(self.queue)):
+            self.queue[idx] = self.queue[idx + 1]
+
+
