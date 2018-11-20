@@ -1,20 +1,24 @@
-import numpy as np
-import unittest
+"""Unit Tests for aux functions in main"""
 from queue import Queue, PriorityQueue
 from unittest import TestCase
+import unittest
+import numpy as np
 
 from src.commons.settings import settings as sf
-from main import generate_ref_string, search
+from src.sim import generate_ref_string, search
 
 
 class TestAux(TestCase):
     """Unit Tests for aux functions in main"""
-    def testSearch(self):
+    def setUp(self):
+        np.random.seed(sf['PRNG_SEED'])
+
+    def test_search(self):
         """Test Search function"""
         for _ in range(sf['TEST_LENGTH']):
             self._search()
 
-    def testGenerate(self):
+    def test_generate(self):
         """Test reference string generation"""
         for _ in range(sf['TEST_LENGTH']):
             self._generate()
@@ -46,7 +50,7 @@ class TestAux(TestCase):
         while not shuffled_queue.empty():
             queue.put(shuffled_queue.get()[1])
 
-        self.assertTrue(search(queue, target))
+        self.assertNotEqual(search(queue, target), -1)
 
 
 if __name__ == '__main__':
