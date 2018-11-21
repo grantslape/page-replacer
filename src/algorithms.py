@@ -1,7 +1,7 @@
 from collections import deque
 from queue import PriorityQueue
 
-from commons.commons import index
+from src.commons.commons import index
 
 
 def opt(page_table: deque, ref_string: deque):
