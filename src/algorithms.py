@@ -1,3 +1,4 @@
+"""Optimal replacement algorithm"""
 from collections import deque
 from queue import PriorityQueue
 

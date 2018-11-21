@@ -1,7 +1,8 @@
 """Project Frontend"""
-import numpy as np
-import argparse
 from collections import deque
+import argparse
+
+import numpy as np
 from arrow import utcnow
 
 from src.modeller import plot_results
@@ -32,7 +33,11 @@ def main():
 
 
 def run(ref_string: deque) -> [dict]:
-    """"""
+    """
+    Run the full suite of simulations
+    :param ref_string: Ref string to use for all simulations
+    :return: list of dict of results
+    """
     results = []
     for key, schedule_type in SCHEDULE_TYPES.items():
         for i in range(sf['MAX_PHYS_PAGE']):

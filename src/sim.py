@@ -32,7 +32,7 @@ class Simulator:
         """
         faults = 0
 
-        while len(self.ref_string) > 0:
+        while self.ref_string:
             next_val = self.ref_string.popleft()
             try:
                 index(list(self.page_table), next_val)

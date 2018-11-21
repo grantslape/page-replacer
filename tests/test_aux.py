@@ -1,6 +1,7 @@
 """Unit Tests for aux functions in main"""
 from unittest import TestCase
 import unittest
+
 import numpy as np
 
 from src.commons.settings import settings as sf
@@ -24,7 +25,7 @@ class TestAux(TestCase):
             max_page=sf['MAX_VIRTUAL_PAGE']
         )
 
-        while len(ref_string) > 0:
+        while ref_string:
             value = ref_string.popleft()
             self.assertTrue(0 <= value <= sf['MAX_VIRTUAL_PAGE'])
 
