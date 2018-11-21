@@ -17,6 +17,8 @@ pip install --upgrade setuptools
 echo "installing requirements"
 pip install -r requirements.txt
 echo "Running tests"
-python -m unittest tests/test_aux.py
+python -m unittest discover tests/ "test_*.py"
+echo "Running sim"
+python main.py 123456
 echo "deactivating virtual environment"
 deactivate

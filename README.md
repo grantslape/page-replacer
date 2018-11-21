@@ -4,5 +4,6 @@ Implementation and comparison of several page replacement algorithms
 ## Usage
 Run tests:
 ```shell
-$ python -m unittest test/test_aux.py
+$ python -m unittest discover tests/ "test_*.py"
+$ python main.py <BASE_SEED>
 ```
