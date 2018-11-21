@@ -12,6 +12,7 @@ def opt(page_table: deque, ref_string: deque):
     results = PriorityQueue()
     for value in list(page_table):
         try:
+            # TODO: deque index does not work in 3.4
             index = ref_string.index(value)
         except ValueError:
             # This page will never be used again, so it is a good victim

@@ -12,7 +12,9 @@ from src.commons.settings import TYPES as SCHEDULE_TYPES
 
 
 def main():
-    """Main program execution"""
+    """
+    Main program execution
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument('seed', type=int, help='Base seed for PRNG')
     args = parser.parse_args()

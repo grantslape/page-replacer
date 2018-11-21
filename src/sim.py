@@ -35,6 +35,7 @@ class Simulator:
         while len(self.ref_string) > 0:
             next_val = self.ref_string.popleft()
             try:
+                # TODO: deque index does not work in 3.4
                 self.page_table.index(next_val)
             except ValueError:
                 # NOT FOUND, page fault
