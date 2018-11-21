@@ -4,7 +4,7 @@ from collections import deque
 from algorithms import opt
 from src.commons.settings import settings as sf
 from src.commons.settings import TYPES as SCHEDULE_TYPES
-from src.commons.commons import generate_ref_string
+from src.commons.commons import generate_ref_string, index
 
 
 class Simulator:
@@ -35,8 +35,7 @@ class Simulator:
         while len(self.ref_string) > 0:
             next_val = self.ref_string.popleft()
             try:
-                # TODO: deque index does not work in 3.4
-                self.page_table.index(next_val)
+                index(list(self.page_table), next_val)
             except ValueError:
                 # NOT FOUND, page fault
                 faults += 1

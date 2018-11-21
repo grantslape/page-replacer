@@ -17,3 +17,18 @@ def generate_ref_string(length: int, max_page: int) -> deque:
         ),
         maxlen=length
     )
+
+
+def index(collection: list, target: int) -> int:
+    """
+    return first index target is at
+    throw value error if not found
+    :param collection: collection to search
+    :param target: target to search for
+    :return: index of item
+    """
+    for idx, item in enumerate(collection):
+        if item == target:
+            return idx
+
+    raise ValueError('Not Found')
