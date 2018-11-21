@@ -68,7 +68,6 @@ class Simulator:
                 self.schedule_type == SCHEDULE_TYPES['LRU']:
             self.page_table.popleft()
         elif self.schedule_type == SCHEDULE_TYPES['OPT']:
-            # TODO; this is not called why
             opt(self.page_table, self.ref_string)
         else:
             raise KeyError(

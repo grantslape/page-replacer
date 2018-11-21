@@ -1,3 +1,4 @@
+from os import rename
 from pathlib import Path
 
 import numpy as np
@@ -16,10 +17,11 @@ def write_csv(results: [dict]) -> Path:
     return Path()
 
 
-def plot_results(results: [dict]) -> Path:
+def plot_results(results: [dict], prefix: str) -> Path:
     """
     Plot results
     :param results: list of dicts, dict for each row
+    :param prefix: file prefix for saved image
     :return: Path to generated plot
     """
     data = pd.DataFrame(results)
@@ -39,5 +41,7 @@ def plot_results(results: [dict]) -> Path:
 
     fig.tight_layout()
     plt.savefig('ax')
+    identifier = 'data/{}_plot.png'.format(prefix)
+    rename('ax.png', identifier)
 
-    return Path()
+    return Path(identifier)

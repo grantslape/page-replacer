@@ -1,13 +1,14 @@
 """Project Frontend"""
+import numpy as np
+import argparse
 from collections import deque
+from arrow import utcnow
 
 from commons.commons import generate_ref_string
 from modeller import plot_results
 from sim import Simulator
 from src.commons.settings import settings as sf
 from src.commons.settings import TYPES as SCHEDULE_TYPES
-import numpy as np
-import argparse
 
 
 def main():
@@ -23,8 +24,9 @@ def main():
         max_page=sf['MAX_VIRTUAL_PAGE']
     )
 
+    prefix = utcnow().timestamp
     results = run(ref_string)
-    plot_results(results)
+    plot_results(results, prefix)
 
 
 def run(ref_string: deque) -> [dict]:
