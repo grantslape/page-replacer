@@ -11,16 +11,19 @@ class Simulator:
     """
     Simulator class
     """
-    def __init__(self, schedule_type: int, table_size: int):
+    def __init__(self, schedule_type: int, table_size: int, ref_string: deque = None):
         if schedule_type not in SCHEDULE_TYPES.values():
             raise ValueError('Unknown schedule type')
 
         self.schedule_type = schedule_type
         self.page_table = deque(maxlen=table_size)
-        self.ref_string = generate_ref_string(
-            length=sf['REF_STRING_SIZE'],
-            max_page=sf['MAX_VIRTUAL_PAGE']
-        )
+        if ref_string is None:
+            self.ref_string = generate_ref_string(
+                length=sf['REF_STRING_SIZE'],
+                max_page=sf['MAX_VIRTUAL_PAGE']
+            )
+        else:
+            self.ref_string = deque(ref_string)
 
     def run_once(self) -> dict:
         """
@@ -37,10 +40,9 @@ class Simulator:
                 # NOT FOUND, page fault
                 faults += 1
                 if len(self.page_table) == self.page_table.maxlen:
-                    self.replace()
+                    self.replace(next_val)
                 else:
                     self.page_table.append(next_val)
-
             else:
                 self.found(next_val)
 
@@ -60,13 +62,17 @@ class Simulator:
             self.page_table.remove(value)
             self.page_table.append(value)
 
-    def replace(self):
+    def replace(self, next_val):
         """Page replacement handler"""
-        if self.schedule_type == SCHEDULE_TYPES['FIFO'] or SCHEDULE_TYPES['LRU']:
+        if self.schedule_type == SCHEDULE_TYPES['FIFO'] or \
+                self.schedule_type == SCHEDULE_TYPES['LRU']:
             self.page_table.popleft()
         elif self.schedule_type == SCHEDULE_TYPES['OPT']:
+            # TODO; this is not called why
             opt(self.page_table, self.ref_string)
         else:
             raise KeyError(
                 'Schedule Type not found: {}'.format(self.schedule_type)
             )
+
+        self.page_table.append(next_val)

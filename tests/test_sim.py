@@ -24,17 +24,18 @@ class TestReplace(TestCase):
     def setUp(self):
         self.sut = Simulator(SCHEDULE_TYPES['FIFO'], 5)
         self.sut.page_table = deque((2, 5, 6, 8, 7), maxlen=5)
-        self.expected = deque((5, 6, 8, 7))
+        self.expected = deque((5, 6, 8, 7, 13))
+        self.next_val = 13
 
     def test_fifo(self):
         """Test FIFO replacement"""
-        self.sut.replace()
+        self.sut.replace(self.next_val)
         self.assertEqual(self.expected, self.sut.page_table)
 
     def test_lru(self):
         """Test LRU replacement"""
         self.sut.schedule_type = SCHEDULE_TYPES['LRU']
-        self.sut.replace()
+        self.sut.replace(self.next_val)
         self.assertEqual(self.expected, self.sut.page_table)
 
 

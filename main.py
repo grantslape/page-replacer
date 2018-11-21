@@ -1,4 +1,8 @@
 """Project Frontend"""
+from collections import deque
+
+from commons.commons import generate_ref_string
+from modeller import plot_results
 from sim import Simulator
 from src.commons.settings import settings as sf
 from src.commons.settings import TYPES as SCHEDULE_TYPES
@@ -14,17 +18,21 @@ def main():
 
     seed = args.seed if args.seed else sf['PRNG_SEED']
     np.random.seed(seed)
+    ref_string = generate_ref_string(
+        length=sf['REF_STRING_SIZE'],
+        max_page=sf['MAX_VIRTUAL_PAGE']
+    )
 
-    results = run()
-    print(results)
+    results = run(ref_string)
+    plot_results(results)
 
 
-def run() -> [dict]:
+def run(ref_string: deque) -> [dict]:
     """"""
     results = []
     for key, schedule_type in SCHEDULE_TYPES.items():
         for i in range(sf['MAX_PHYS_PAGE']):
-            results.append(Simulator(schedule_type, i + 1).run_once())
+            results.append(Simulator(schedule_type, i + 1, ref_string).run_once())
 
     return results
 
