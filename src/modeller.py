@@ -27,8 +27,6 @@ def plot_results(results: [dict], prefix: str) -> Path:
     data = pd.DataFrame(results)
     data = data.sort_values(['type', 'max_frames'])
 
-    print(data)
-
     fig, ax = plt.subplots()
 
     for key, group in data.groupby(['type']):
