@@ -29,8 +29,11 @@ def main():
 
     prefix = utcnow().timestamp
     results = run(ref_string)
-    plot_results(results, prefix)
-    write_csv(results, prefix)
+    plot_path = plot_results(results, prefix)
+    file_path = write_csv(results, prefix)
+
+    print('Plot path is at; {}'.format(plot_path))
+    print('CSV path is at: {}'.format(file_path))
 
 
 def run(ref_string: deque) -> [dict]:
