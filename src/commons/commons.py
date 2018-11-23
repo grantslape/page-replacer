@@ -1,5 +1,6 @@
-import numpy as np
+"""Shared functions"""
 from collections import deque
+import numpy as np
 
 
 def generate_ref_string(length: int, max_page: int) -> deque:
@@ -21,8 +22,9 @@ def generate_ref_string(length: int, max_page: int) -> deque:
 
 def index(collection: list, target: int) -> int:
     """
-    return first index target is at
-    throw value error if not found
+    return first index target is at, throw value error if not found
+    This is functionally the same as the deque.index() method that was added
+    in Python 3.5 - for <3.4 compatibility this is used instead.
     :param collection: collection to search
     :param target: target to search for
     :return: index of item

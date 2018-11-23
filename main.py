@@ -5,7 +5,7 @@ import argparse
 import numpy as np
 from arrow import utcnow
 
-from src.modeller import plot_results
+from src.modeller import plot_results, write_csv
 from src.sim import Simulator
 from src.commons.commons import generate_ref_string
 from src.commons.settings import settings as sf
@@ -30,6 +30,7 @@ def main():
     prefix = utcnow().timestamp
     results = run(ref_string)
     plot_results(results, prefix)
+    write_csv(results, prefix)
 
 
 def run(ref_string: deque) -> [dict]:

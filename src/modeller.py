@@ -1,21 +1,32 @@
 """Modelling functions"""
+import csv
 from os import rename
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
-def write_csv(results: [dict]) -> Path:
+BASE_PATH = 'data'
+
+
+def write_csv(results: [dict], prefix: str) -> Path:
     """
     Write results to CSV
     :param results: list of dicts, dict for each row
+    :param prefix: file prefix for saved results
     :return: Path to output csv
     """
-    return Path()
+    identifier = '{}/{}.csv'.format(BASE_PATH, prefix)
+
+    with open(identifier, 'w') as file:
+        writer = csv.DictWriter(file, fieldnames=results[0].keys())
+        writer.writeheader()
+        writer.writerows(rowdicts=results)
+
+    return Path(identifier)
 
 
 def plot_results(results: [dict], prefix: str) -> Path:
@@ -40,7 +51,7 @@ def plot_results(results: [dict], prefix: str) -> Path:
 
     fig.tight_layout()
     plt.savefig('ax')
-    identifier = 'data/{}_plot.png'.format(prefix)
+    identifier = '{}/{}_plot.png'.format(BASE_PATH, prefix)
     rename('ax.png', identifier)
 
     return Path(identifier)
