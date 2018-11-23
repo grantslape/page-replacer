@@ -16,6 +16,35 @@ Implementation and comparison of several page replacement algorithms:
 
 ```shell
 $ ./run.sh
-```
+``` 
 
 Please note that installation of requirements packages can take some time, so go grab a coffee.
+
+## Advanced Usage
+
+1) Create virtual environment
+    
+    ```shell
+    $ python3 -m venv env
+    $ source env/bin/activate
+    ```
+    
+2) Install requirements (Takes some time)
+    
+    ```shell
+    $ pip install --upgrade setuptools
+    $ pip install -r requirements.txt
+    ```
+
+1) Run tests
+    ```shell
+    $ python -m unittest discover tests/ "test_*.py"
+    ```
+3) Run simulation
+    ```shell
+    $ python main.py <SEED> [--frames <MAX_FRAMES]
+    ```
+4) Deactivate environment
+    ```shell
+    $ deactivate
+    ```
