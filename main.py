@@ -18,17 +18,26 @@ def main():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('seed', type=int, help='Base seed for PRNG')
+    parser.add_argument(
+        '-p', '--pages',
+        type=int,
+        required=False,
+        help='Max number of physical page frames to simulate'
+    )
     args = parser.parse_args()
 
     seed = args.seed if args.seed else sf['PRNG_SEED']
+    max_pages = args.pages if args.pages else sf['MAX_PHYS_PAGE']
+
     np.random.seed(seed)
     ref_string = generate_ref_string(
         length=sf['REF_STRING_SIZE'],
         max_page=sf['MAX_VIRTUAL_PAGE']
     )
-
     prefix = utcnow().timestamp
-    results = run(ref_string)
+
+    results = run(ref_string, max_pages)
+
     plot_path = plot_results(results, prefix)
     file_path = write_csv(results, prefix)
 
@@ -36,15 +45,16 @@ def main():
     print('CSV path is at: {}'.format(file_path))
 
 
-def run(ref_string: deque) -> [dict]:
+def run(ref_string: deque, max_pages: int) -> [dict]:
     """
     Run the full suite of simulations
     :param ref_string: Ref string to use for all simulations
+    :param max_pages: max number of pages to use
     :return: list of dict of results
     """
     results = []
     for key, schedule_type in SCHEDULE_TYPES.items():
-        for i in range(sf['MAX_PHYS_PAGE']):
+        for i in range(max_pages):
             results.append(Simulator(schedule_type, i + 1, ref_string).run_once())
 
     return results
