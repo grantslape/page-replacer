@@ -2,6 +2,8 @@
 from collections import deque
 import numpy as np
 
+from src.commons.settings import TYPES as SCHEDULE_TYPES
+
 
 def generate_ref_string(length: int, max_page: int) -> deque:
     """
@@ -32,5 +34,18 @@ def index(collection: list, target: int) -> int:
     for idx, item in enumerate(collection):
         if item == target:
             return idx
+
+    raise ValueError('Not Found')
+
+
+def de_ref(target: int) -> str:
+    """
+    Back search types dict for string name
+    :param target: target to search for
+    :return: string representation of name
+    """
+    for key, value in SCHEDULE_TYPES.items():
+        if target == value:
+            return key
 
     raise ValueError('Not Found')

@@ -4,7 +4,7 @@ from collections import deque
 from src.algorithms import opt
 from src.commons.settings import settings as sf
 from src.commons.settings import TYPES as SCHEDULE_TYPES
-from src.commons.commons import generate_ref_string, index
+from src.commons.commons import generate_ref_string, index, de_ref
 
 
 class Simulator:
@@ -47,7 +47,7 @@ class Simulator:
                 self.found(next_val)
 
         return {
-            'type': self.schedule_type,
+            'type': de_ref(self.schedule_type),
             'max_frames': self.page_table.maxlen,
             'page_faults': faults
         }
