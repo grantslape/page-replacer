@@ -24,15 +24,29 @@ def main():
         required=False,
         help='Max number of physical page frames to simulate'
     )
+    parser.add_argument(
+        '--virtual-pages',
+        type=int,
+        required=False,
+        help='Maximum virtual page number to use starting at 0'
+    )
+    parser.add_argument(
+        '-r', '--ref-string',
+        type=int,
+        required=False,
+        help='Size of reference string to use'
+    )
     args = parser.parse_args()
 
     seed = args.seed if args.seed else sf['PRNG_SEED']
     max_pages = args.pages if args.pages else sf['MAX_PHYS_PAGE']
+    virtual_pages = args.virtual_pages if args.virtual_pages else sf['MAX_VIRTUAL_PAGE']
+    string_size = args.ref_string if args.ref_string else sf['REF_STRING_SIZE']
 
     np.random.seed(seed)
     ref_string = generate_ref_string(
-        length=sf['REF_STRING_SIZE'],
-        max_page=sf['MAX_VIRTUAL_PAGE']
+        length=string_size,
+        max_page=virtual_pages
     )
     prefix = utcnow().timestamp
 
